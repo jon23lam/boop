@@ -2,11 +2,19 @@
 
 class Player:
 
-  def __init__(self) -> None:
+  def __init__(self, player_number) -> None:
     self.kittens = 8
     self.cats = 0
     self.active_kittens = 0
     self.active_cats = 0
+
+    if player_number == 1:
+      self.kitten_piece = 'x'
+      self.cat_piece = 'X'
+    else:
+      self.kitten_piece = 'o'
+      self.cat_piece = 'O'
+    
 
 
   def upgrade_cats(self):
