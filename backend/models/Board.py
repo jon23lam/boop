@@ -1,4 +1,15 @@
-import Player
+
+# import sys
+# import os
+# from dotenv import load_dotenv
+
+# # Load environment variables from .env file
+# load_dotenv()
+# sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+
+
+from .Player import Player
+
 # Board representation:
 
 # ......
@@ -29,7 +40,12 @@ class Board:
 
   def make_move(self, player_piece, row, col):
     self.board[row][col] = player_piece
-    self.check_boops(row, col)
+    if player_piece == 'X' or player_piece == 'x':
+      is_cat = True
+    else:
+      is_cat = False
+      
+    self.check_boops(is_cat, row, col)
 
   def check_boops(self, is_cat, row, col):
     upper_row = row - 1
@@ -300,3 +316,11 @@ class Board:
 
     # If no player has won yet, return None
     return None
+  
+  def print(self):
+    print(self.board[0])
+    print(self.board[1])
+    print(self.board[2])
+    print(self.board[3])
+    print(self.board[4])
+    print(self.board[5])
