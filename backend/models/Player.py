@@ -3,6 +3,7 @@
 class Player:
 
   def __init__(self, player_number) -> None:
+    self.player = player_number
     self.kittens = 8
     self.cats = 0
     self.active_kittens = 0
