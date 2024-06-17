@@ -23,6 +23,8 @@ def game():
     else:
       current_player_turn = "Player 2's turn: "
     
+    print(f"Available kittens: {current_player.kittens - current_player.active_kittens}")
+    print(f"Available cats: {current_player.cats - current_player.active_cats}")
     # Assuming move is done in format: "2 3 x" where the first number is the row and the second is the col
     # and the last one is x/o for kitten or X/O for cat
     move = input(current_player_turn)
@@ -34,14 +36,16 @@ def game():
       
     row = int(validated_move[0])
     col = int(validated_move[2])
-    player_piece = validated_move[4]
+    piece = validated_move[4]
 
-    board.make_move(player_piece, row, col)
-
-    if player_piece == 'x' or player_piece == 'o':
+    if piece == 'k':
+      player_piece = current_player.kitten_piece
       current_player.active_kittens += 1
     else:
+      player_piece = current_player.cat_piece
       current_player.active_cats += 1
+
+    board.make_move(player_piece, row, col)
 
     winner = board.check_win_or_upgrade()
 
@@ -58,21 +62,21 @@ def check_valid_move(move: str, player: Player):
 
   if len(move) != 5:
     valid_move = False
-    error_message = "That is not a valid move. Please make sure that moves are in the format: 'num num piece' where the first number is the row and the second is the col and the last one is x/o for kitten or X/O for cat: "
+    error_message = "That is not a valid move. Please make sure that moves are in the format: 'num num piece' where the first number is the row and the second is the col and the last one is k for kitten or c for cat: "
   else:
     row = int(move[0])
     col = int(move[2])
     player_piece = move[4]
 
-    if (row < 0 or row >= 6) or (col < 0 and col >= 6) or (player_piece != 'x' and player_piece != 'o' and player_piece != 'X' and player_piece != 'O'):
+    if (row < 0 or row >= 6) or (col < 0 and col >= 6) or (player_piece != 'k' and player_piece != 'c'):
       valid_move = False
-      error_message = "That is not a valid move. Please make sure that moves are in the format: 'num num piece' where the first number is the row and the second is the col and the last one is x/o for kitten or X/O for cat: "
-    elif (player_piece == 'x' or player_piece == 'o') and player.active_kittens + 1 > player.kittens:
-      valid_move = False
-      error_message = "You do not have enough kittens to make that move. Please try again: "
-    elif (player_piece == 'X' or player_piece == 'O') and player.active_cats + 1 > player.cats:
+      error_message = "That is not a valid move. Please make sure that moves are in the format: 'num num piece' where the first number is the row and the second is the col and the last one is k for kitten or c for cat: "
+    elif player_piece == 'k' and player.active_kittens + 1 > player.kittens:
       valid_move = False
       error_message = "You do not have enough kittens to make that move. Please try again: "
+    elif player_piece == 'c' and player.active_cats + 1 > player.cats:
+      valid_move = False
+      error_message = "You do not have enough cats to make that move. Please try again: "
 
 
   return valid_move, move, error_message

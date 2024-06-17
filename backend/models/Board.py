@@ -282,6 +282,14 @@ class Board:
         self.board[row + 1][col + 1] = '.'
         self.board[row + 2][col + 2] = '.'
 
+    if col < 4 and row >= 2:
+      # Check next 3 to see if they are the same piece
+      if self.board[row - 1][col + 1] == piece_to_check and self.board[row - 2][col + 2] == piece_to_check:
+        player.upgrade_cats()
+        self.board[row][col] = '.'
+        self.board[row - 1][col + 1] = '.'
+        self.board[row - 2][col + 2] = '.'
+
 
 
   def check_win(self, row, col):
@@ -302,6 +310,11 @@ class Board:
     if col < 4 and row < 4:
       # Check next 3 to see if they are the same piece
       if self.board[row + 1][col + 1] == piece_to_check and self.board[row + 2][col + 2] == piece_to_check:
+        return player
+      
+    if col < 4 and row >= 2:
+      # Check next 3 to see if they are the same piece
+      if self.board[row - 1][col + 1] == piece_to_check and self.board[row - 2][col + 2] == piece_to_check:
         return player
 
     # If no player has won yet, return None
