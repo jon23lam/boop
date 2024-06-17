@@ -27,6 +27,8 @@ class Board:
     ]
     self.player1 = player1
     self.player2 = player2
+    self.current_turn = player1
+
 
   def make_move(self, player_piece, row, col):
     self.board[row][col] = player_piece
@@ -36,6 +38,12 @@ class Board:
       is_cat = False
 
     self.check_boops(is_cat, row, col)
+
+    if self.current_turn == self.player2:
+      self.current_turn = self.player1
+    else:
+      self.current_turn = self.player2
+
 
   def check_boops(self, is_cat, row, col):
     upper_row = row - 1
