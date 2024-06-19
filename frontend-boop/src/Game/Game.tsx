@@ -1,10 +1,8 @@
-import logo from "./logo.svg";
 import React, { useState, useEffect } from "react";
+import { ReactComponent as Kitten} from '../svgs/kitten.svg';
 import axios from "axios";
 
-import "./App.css";
-
-function App() {
+export function Game() {
   const [board, setBoard] = useState([]);
   const [currentTurn, setCurrentTurn] = useState(1);
   const [numKittens, setNumKittens] = useState(0);
@@ -24,7 +22,7 @@ function App() {
     setNumCats(response.data.numCats)
   };
 
-  const makeMove = async (row, col) => {
+  const makeMove = async (row: number, col: number) => {
     let piece 
     if (catsToggled) {
       piece = currentTurn === 1 ? "X" : "O"
@@ -42,7 +40,7 @@ function App() {
   };
 
   const renderBoard = () => {
-    return board.map((row, rowIndex) => (
+    return board.map((row: Array<String>, rowIndex) => (
       <div key={rowIndex} className="row">
         {row.map((cell, colIndex) => (
           <div
@@ -52,7 +50,7 @@ function App() {
               makeMove(rowIndex, colIndex)
             }
           >
-            {cell}
+            {cell === 'x' ? <Kitten /> : cell}
           </div>
         ))}
       </div>
@@ -74,14 +72,14 @@ function App() {
       <h3>Kittens Available: {numKittens} | Cats Available: {numCats}</h3>
       <div className="kittenToggle">
         <p>Place a cat:</p>
-        <label class="switch">
+        <label className="switch">
           <input type="checkbox" onChange={onToggleChange}/>
-          <span class="slider round"></span>
+          <span className="slider round"></span>
         </label>
       </div>
       <div className="board">{renderBoard()}</div>
     </div>
-  );
+  )
 }
 
-export default App;
+export default Game
