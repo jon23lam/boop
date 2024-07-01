@@ -34,6 +34,9 @@ def make_move():
     game_board.make_move(player_piece, row, col)
     
     winner = game_board.check_win_or_upgrade()
+
+    if winner != None:
+       winner = winner.player
     return jsonify({'board': game_board.board, 'winner': winner})
 
 

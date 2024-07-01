@@ -171,7 +171,7 @@ class Board:
               # we have a valid boop
               self.board[lower_row + 1][left_col - 1] = bottom_left_piece
               self.board[lower_row][left_col] = '.'
-
+              
     # lower middle
     if lower_row < 6:
       bottom_piece = self.board[lower_row][col]
@@ -307,7 +307,7 @@ class Board:
 
     if col < 4:
       # Check next 3 to see if they are the same piece
-      if self.board[row ][col + 1] == piece_to_check and self.board[row][col + 2] == piece_to_check:
+      if self.board[row][col + 1] == piece_to_check and self.board[row][col + 2] == piece_to_check:
         return player
 
     if row < 4:
